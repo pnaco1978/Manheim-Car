@@ -1,13 +1,16 @@
 package com.manheimthailand.pnaco.manheimcar;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.StrictMode;
 import android.provider.ContactsContract;
 import android.provider.MediaStore;
+import android.speech.tts.Voice;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
@@ -16,6 +19,12 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
+
+import com.squareup.okhttp.FormEncodingBuilder;
+import com.squareup.okhttp.OkHttpClient;
+import com.squareup.okhttp.Request;
+import com.squareup.okhttp.RequestBody;
+import com.squareup.okhttp.Response;
 
 import org.jibble.simpleftp.SimpleFTP;
 
@@ -65,6 +74,12 @@ public class SignUpActivity extends AppCompatActivity {
                 } else {
                     // Choose Image finish
                     upLoadImageToServer();
+
+                    // Update String to Server
+                    AddUser addUser = new AddUser(SignUpActivity.this);
+                    MyContant myContant = new MyContant();
+                    addUser.execute(myContant.getUrlAddUserString());
+
                 }
 
 
@@ -85,6 +100,61 @@ public class SignUpActivity extends AppCompatActivity {
         });
 
     }   // Main Method
+
+    // Create Inner Class
+    private class AddUser extends AsyncTask<String, Void, String> {
+
+        // Explicit
+        private Context context;
+
+        public AddUser(Context context) {
+            this.context = context;
+        }
+
+        @Override
+        protected String doInBackground(String... params) {
+
+            try {
+                MyContant myContant = new MyContant();
+                imageString = myContant.getUrlImageString() + imageNameString;
+                OkHttpClient okHttpClient = new OkHttpClient();
+                RequestBody requestBody = new FormEncodingBuilder()
+                        .add("isAdd", "true")
+                        .add("Name", nameString)
+                        .add("User", userString)
+                        .add("Password", passwordString)
+                        .add("Image", imageString)
+                        .build();
+                Request.Builder builder = new Request.Builder();
+                Request request = builder.url(params[0]).post(requestBody).build();
+                Response response = okHttpClient.newCall(request).execute();
+                return response.body().string();
+
+            } catch (Exception e) {
+                Log.d("23octV2", "e doInBackground ==> " + e.toString());
+                return null;
+            }
+
+        }   // doInBackground
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            Log.d("23octV2", "Result ==> " + s);
+            String result = null;
+            if (Boolean.parseBoolean(s)) {
+                result = "Upload Value Finish";
+                Toast.makeText(context, result, Toast.LENGTH_SHORT).show();
+                finish();
+
+            } else {
+                result = "Can't Upload";
+                Toast.makeText(context, result, Toast.LENGTH_SHORT).show();
+            }
+
+        }   // onPostExecute
+    }   // AddUser Class
+
 
     private void upLoadImageToServer() {
 
