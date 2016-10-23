@@ -23,6 +23,7 @@ public class SignUpActivity extends AppCompatActivity {
     private Button button;
     private String nameString, userString, passwordString, imageString, imagePathString, imageNameString;
     private Uri uri;
+    private boolean aBoolean = true;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -51,7 +52,15 @@ public class SignUpActivity extends AppCompatActivity {
                     // Have Space
                     MyAlert myAlert = new MyAlert(SignUpActivity.this, R.drawable.bird48, "don't space", "please verifry value");
                     myAlert.myDialog();
+                } else if (aBoolean) {
+                    // Non Choose Image
+                    MyAlert myAlert = new MyAlert(SignUpActivity.this, R.drawable.doremon48, "Non Choose Image", "please Choose Image");
+                    myAlert.myDialog();
+                } else {
+                    // Choose Image finish
                 }
+
+
 
             }   // onClick
         });
@@ -76,6 +85,8 @@ public class SignUpActivity extends AppCompatActivity {
 
         if ((requestCode == 1) && (resultCode == RESULT_OK)) {
             Log.d("23octV1", "Result OF");
+
+            aBoolean = false;
 
             // setupImage
             uri = data.getData();
