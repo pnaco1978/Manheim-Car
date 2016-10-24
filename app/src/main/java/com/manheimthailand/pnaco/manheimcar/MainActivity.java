@@ -111,13 +111,17 @@ public class MainActivity extends AppCompatActivity {
 
             try {
                 JSONArray jsonArray = new JSONArray(s);
+
+                nameStrings = new String[jsonArray.length()];
+                imageStrings = new String[jsonArray.length()];
+                latStrings = new String[jsonArray.length()];
+                lngStrings = new String[jsonArray.length()];
+
+
                 for (int i=0; i<jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-                    nameStrings = new String[jsonArray.length()];
-                    imageStrings = new String[jsonArray.length()];
-                    latStrings = new String[jsonArray.length()];
-                    lngStrings = new String[jsonArray.length()];
+
 
                     // Check users
                     if (userString.contentEquals(jsonObject.getString("User"))) {
@@ -131,6 +135,12 @@ public class MainActivity extends AppCompatActivity {
                     latStrings[i] = jsonObject.getString("Lat");
                     lngStrings[i] = jsonObject.getString("Lng");
 
+                    // Check
+                    Log.d("24octV4", "Name (" + i + ") ==> " + nameStrings[i]);
+                    Log.d("24octV4", "Image (" + i + ") ==> " + imageStrings[i]);
+                    Log.d("24octV4", "Lat (" + i + ") ==> " + latStrings[i]);
+                    Log.d("24octV4", "Lng (" + i + ") ==> " + lngStrings[i]);
+
                 }   // for loop
 
                 if (aBoolean) {
@@ -140,13 +150,26 @@ public class MainActivity extends AppCompatActivity {
                 } else if (passwordString.equals(truePasswordString)) {
                     // Password True
                     Toast.makeText(context, "Welcome", Toast.LENGTH_SHORT).show();
+
+                    // Check Array
+                    Log.d("24octV5", "Total records ==> " + nameStrings.length);
+
+                    for (int i=0; i<nameStrings.length; i++) {
+                        Log.d("24octV5", "Name (" + i + ") ==> " + nameStrings[i]);
+                        Log.d("24octV5", "Image (" + i + ") ==> " + imageStrings[i]);
+                        Log.d("24octV5", "Lat (" + i + ") ==> " + latStrings[i]);
+                        Log.d("24octV5", "Lng (" + i + ") ==> " + lngStrings[i]);
+
+                    }
+
+
                     Intent intent = new Intent(MainActivity.this, ListService.class);
 
                     // Put data to listService
                     intent.putExtra("Name", nameStrings);
                     intent.putExtra("Image", imageStrings);
                     intent.putExtra("Lat", latStrings);
-                    intent.putExtra("lng", lngStrings);
+                    intent.putExtra("Lng", lngStrings);
 
                     startActivity(intent);
                     finish();
