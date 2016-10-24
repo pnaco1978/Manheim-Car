@@ -48,7 +48,7 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/manheim_logo_200"
+            android:src="@drawable/manheim_logo_200"
             android:id="@+id/imageView2" />
 
         <EditText

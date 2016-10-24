@@ -47,8 +47,8 @@ public class SignUpActivity extends AppCompatActivity {
 
         // Bind Widget
         nameEdiText = (EditText) findViewById(R.id.editText);
-        userEditText = (EditText) findViewById(R.id.editText2);
-        passwordEditText = (EditText) findViewById(R.id.editText3);
+        userEditText = (EditText) findViewById(R.id.editText3);
+        passwordEditText = (EditText) findViewById(R.id.editText2);
         imageView = (ImageView) findViewById(R.id.imageView);
         button = (Button) findViewById(R.id.button3);
 
