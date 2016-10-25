@@ -48,7 +48,7 @@ public class ListService extends AppCompatActivity {
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                Intent intent = new Intent(ListService.this, DetectedActivity.class);
+                Intent intent = new Intent(ListService.this, detailActivity.class);
                 startActivity(intent);
 
             }
