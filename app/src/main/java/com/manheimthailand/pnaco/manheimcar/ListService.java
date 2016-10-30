@@ -92,7 +92,12 @@ public class ListService extends AppCompatActivity {
                 Log.d("30octV2", "bolLng == >" + bolLng);
 
                 if (bolLat && bolLng) {
-                    Intent intent = new Intent(ListService.this, DetectedActivity.class);
+                    Intent intent = new Intent(ListService.this, detailActivity.class);
+
+                    intent.putExtra("Name", nameStrings[i]);
+                    intent.putExtra("Lat", latStrings[i]);
+                    intent.putExtra("Lng", lngStrings[i]);
+
                     startActivity(intent);
 
                 } else {
