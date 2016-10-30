@@ -14,6 +14,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.google.android.gms.location.DetectedActivity;
 import com.squareup.okhttp.FormEncodingBuilder;
 import com.squareup.okhttp.OkHttpClient;
 import com.squareup.okhttp.Request;
@@ -29,6 +30,7 @@ public class ListService extends AppCompatActivity {
     private Criteria criteria;
     private double latADouble, lngADouble;
     private String idLoginUserString;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,8 +61,6 @@ public class ListService extends AppCompatActivity {
         }
 
 
-
-
         //Create ListView
         OfficerAdapter officerAdapter = new OfficerAdapter(ListService.this,
                 nameStrings, latStrings, lngStrings, imageStrings);
@@ -70,8 +70,38 @@ public class ListService extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
 
-                Intent intent = new Intent(ListService.this, detailActivity.class);
-                startActivity(intent);
+                // Check Lat and Lng ==> double
+                boolean bolLat = true;
+                boolean bolLng = true;
+
+                try {
+                    Double.parseDouble(String.valueOf(latStrings[i]));
+
+                } catch (Exception e) {
+                    bolLat = false;
+                }
+
+                try {
+                    Double.parseDouble(String.valueOf(lngStrings[i]));
+
+                } catch (Exception e) {
+                    bolLng = false;
+                }
+
+                Log.d("30octV2", "bolLat == >" + bolLat);
+                Log.d("30octV2", "bolLng == >" + bolLng);
+
+                if (bolLat && bolLng) {
+                    Intent intent = new Intent(ListService.this, DetectedActivity.class);
+                    startActivity(intent);
+
+                } else {
+                    MyAlert myAlert = new MyAlert(ListService.this, R.drawable.bird48, "No location", "Lat / Lng not correct");
+                    myAlert.myDialog();
+                }
+
+                //  Intent intent = new Intent(ListService.this, detailActivity.class);
+                //  startActivity(intent);
 
             }   // onItemClick
         });

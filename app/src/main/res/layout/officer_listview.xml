@@ -26,7 +26,7 @@
             android:id="@+id/textView2"
             android:textSize="@dimen/h1"
             android:textStyle="normal|bold"
-            android:textColor="@color/aText" />
+            android:textColor="@color/hText" />
 
         <TextView
             android:text="TextView"
@@ -35,7 +35,7 @@
             android:id="@+id/textView3"
             android:textSize="@dimen/h2"
             android:textStyle="normal|italic"
-            android:textColor="@color/aText" />
+            android:textColor="@color/hText" />
 
         <TextView
             android:text="TextView"
@@ -44,6 +44,6 @@
             android:id="@+id/textView4"
             android:textSize="@dimen/h2"
             android:textStyle="normal|italic"
-            android:textColor="@color/aText" />
+            android:textColor="@color/hText" />
     </LinearLayout>
 </LinearLayout>
