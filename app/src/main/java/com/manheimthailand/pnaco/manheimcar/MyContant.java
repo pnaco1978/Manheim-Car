@@ -17,6 +17,11 @@ public class MyContant {
     private String urlJSONString = "http://swiftcodingthai.com/Man/get_data_naco.php";
     private String testTitleString = "User find not founded.";
     private String testMessageString = "User find not founded in DataBase.";
+    private String urlEditLocationString = "http://swiftcodingthai.com/Man/edit_location_naco.php";
+
+    public String getUrlEditLocationString() {
+        return urlEditLocationString;
+    }
 
     public String getTestTitleString() {
         return testTitleString;

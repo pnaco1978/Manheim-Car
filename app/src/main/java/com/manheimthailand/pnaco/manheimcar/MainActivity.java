@@ -75,7 +75,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Explicit
         private Context context;
-        private String titleString, messageString, truePasswordString;
+        private String titleString, messageString, truePasswordString, idString;
         private String[] nameStrings, imageStrings, latStrings, lngStrings;
         private boolean aBoolean = true;
 
@@ -121,12 +121,11 @@ public class MainActivity extends AppCompatActivity {
                 for (int i=0; i<jsonArray.length(); i++) {
                     JSONObject jsonObject = jsonArray.getJSONObject(i);
 
-
-
                     // Check users
                     if (userString.contentEquals(jsonObject.getString("User"))) {
                         aBoolean = false;
                         truePasswordString = jsonObject.getString("Password");
+                        idString = jsonObject.getString("ID");
                     }   // if
 
                     // Setup Array
@@ -166,10 +165,11 @@ public class MainActivity extends AppCompatActivity {
                     Intent intent = new Intent(MainActivity.this, ListService.class);
 
                     // Put data to listService
-                    intent.putExtra("Name", nameStrings);
-                    intent.putExtra("Image", imageStrings);
-                    intent.putExtra("Lat", latStrings);
-                    intent.putExtra("Lng", lngStrings);
+                    intent.putExtra("id", idString);    // for where edit location
+                    intent.putExtra("Name", nameStrings);   // for create ListView
+                    intent.putExtra("Image", imageStrings);   // for create ListView
+                    intent.putExtra("Lat", latStrings);   // for create ListView
+                    intent.putExtra("Lng", lngStrings);   // for create ListView
 
                     startActivity(intent);
                     finish();
